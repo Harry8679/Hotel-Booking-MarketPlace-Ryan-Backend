@@ -17,12 +17,22 @@ const userSchema = new Schema({
     password: {
         type: String,
         trim: true,
-        min: 6,
-        max: 64
+        minlength: 6,
+        maxlength: 64,
+        required: 'Password is required'
     },
-    stripe_account_id: '',
-    stripe_seller: {},
-    stripeSession: {}
+    stripe_account_id: {
+        type: String,  // Define the type as String
+        default: ''    // Optionally set a default value
+    },
+    stripe_seller: {
+        type: Object,  // Define the type as Object
+        default: {}    // Optionally set a default value
+    },
+    stripeSession: {
+        type: Object,  // Define the type as Object
+        default: {}    // Optionally set a default value
+    }
 }, { timestamps: true });
 
 // Middleware to hash the password before saving the user
@@ -52,6 +62,5 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
-
 
 module.exports = mongoose.model('User', userSchema);
