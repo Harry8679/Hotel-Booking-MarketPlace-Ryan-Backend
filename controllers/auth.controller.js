@@ -1,5 +1,10 @@
 const home = (req, res) => {
-    res.send('Test 4');
+    res.send('Test 5');
 }
 
-module.exports = { home };
+const register = (req, res) => {
+    console.log(req.body);
+    res.send('Registration from Controller 2');
+}
+
+module.exports = { home, register };

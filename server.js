@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
-// const mongoose = require('mongoose');
+const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -15,6 +15,8 @@ connectDB();
 
 // Middlewares
 app.use(morgan('dev'));
+app.use(cors());
+app.use(express.json());
 
 fs.readdirSync('./routes').map((r) => app.use('/api/v1', require(`./routes/${r}`)));
 
